@@ -23,14 +23,18 @@ package = {
 }
 
 stage = this_dir / 'stage'
+startup_file = this_dir / 'ssh.sh'
 
 
-@command(produces=[package['target']])
+@command(produces=[package['target']], consumes=[startup_file])
 def build():
     call([
         f'rm -rf --one-file-system {stage}',
 
         f'mkdir -p {stage}/etc/systemd/system',
+
+        f'mkdir -p {stage}/startup',
+        f'cp {startup_file} {stage}/startup',
 
         f'tar -C {stage} -czf {package["target"]} .'
     ])

@@ -34,9 +34,10 @@ stage = this_dir / 'stage'
 en = this_dir / 'en.network'
 wl = this_dir / 'wlan0.network'
 wpa = this_dir / 'wpa_supplicant@.service'
+startup_file = this_dir / 'net.sh'
 
 
-@command(produces=[package['target']], consumes=[en, wl, wpa])
+@command(produces=[package['target']], consumes=[en, wl, wpa, startup_file])
 def build():
     call([
         f'rm -rf --one-file-system {stage}',
@@ -46,6 +47,9 @@ def build():
 
         f'cp {en} {wl} {stage}/etc/systemd/network/',
         f'cp {wpa} {stage}/etc/systemd/system/',
+
+        f'mkdir -p {stage}/startup',
+        f'cp {startup_file} {stage}/startup',
 
         f'tar -C {stage} -czf {package["target"]} .'
     ])

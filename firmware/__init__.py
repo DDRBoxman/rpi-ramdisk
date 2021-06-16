@@ -21,8 +21,10 @@ target = this_dir / 'firmware.tar.gz'
 sources = [this_dir / file for file in ['cmdline.txt', 'config.txt']]
 msd = this_dir / 'usbboot' / 'msd' / 'start.elf'
 
+startup_files = [this_dir / file for file in ['default.sh']]
 
-@command(produces = [target], consumes = [*sources, msd, firmware])
+
+@command(produces = [target], consumes = [*startup_files, *sources, msd, firmware])
 def build():
     call([
         f'rm -rf --one-file-system {stage}',
@@ -34,6 +36,9 @@ def build():
 
         f'cp {msd} {stage}/boot/msd.elf',
         f'touch {stage}/boot/UART',
+
+        f'mkdir -p {stage}/boot/startup',
+        f'cp {" ".join(str(s) for s in startup_files)} {stage}/boot/startup/',
 
         f'tar -C {stage}/boot/ -czvf {target} .',
     ], env=env)
