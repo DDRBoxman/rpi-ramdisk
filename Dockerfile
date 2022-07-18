@@ -20,10 +20,10 @@ RUN sed -i \
  -e 's/filter(lambda x: not x.endswith(".la"), libraries)/list(filter(lambda x: not x.endswith(".la"), libraries))/' \
  /usr/lib/x86_64-linux-gnu/gobject-introspection/giscanner/shlibs.py
 
-RUN git clone git://github.com/ali1234/pydo && cd pydo && pip3 install .[color]
+RUN git clone https://github.com/ali1234/pydo && cd pydo && pip3 install .[color]
 
 # we need 0.52 for sysroot support - not released yet so install from git
-RUN git clone git://github.com/mesonbuild/meson && cd meson && pip3 install .
+RUN git clone https://github.com/mesonbuild/meson && cd meson && pip3 install .
 
 ARG UID=1000
 ARG GID=1000
