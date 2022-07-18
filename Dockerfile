@@ -1,4 +1,4 @@
-FROM ubuntu:eoan
+FROM ubuntu:focal
 
 RUN dpkg --add-architecture i386 && apt-get update -qy && apt-get -qy install \
  libc6:i386 libstdc++6:i386 libgcc1:i386 \
@@ -7,7 +7,7 @@ RUN dpkg --add-architecture i386 && apt-get update -qy && apt-get -qy install \
  autoconf automake libtool pkg-config autopoint \
  bison flex libglib2.0-dev gobject-introspection \
  multistrap proot qemu-user binfmt-support makedev cpio \
- gtk-doc-tools valac python3.7-minimal python3-pip \
+ gtk-doc-tools valac python3.8-minimal python3-pip \
  libssl-dev gpg nano cmake dnsmasq ninja-build \
  strace
 
