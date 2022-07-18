@@ -7,4 +7,4 @@ docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g) \
 docker run -v $PWD:$PWD -w $PWD --network host -e APT_HTTP_PROXY -e PYDOJOBS \
            -e TERM --hostname rpi-ramdisk \
            --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --privileged \
-           --rm rpi-ramdisk
+           --rm rpi-ramdisk pydo --init &&  pydo :build -s10
