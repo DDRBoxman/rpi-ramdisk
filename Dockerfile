@@ -1,5 +1,7 @@
 FROM ubuntu:focal
 
+RUN ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone
+
 RUN dpkg --add-architecture i386 && apt-get update -qy && apt-get -qy install \
  libc6:i386 libstdc++6:i386 libgcc1:i386 \
  libncurses5:i386 libtinfo5:i386 zlib1g:i386 \
